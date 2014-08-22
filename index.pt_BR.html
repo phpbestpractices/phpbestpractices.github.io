@@ -105,24 +105,83 @@
         
             <section id="introduction">
                 <h2>Introdução</h2>
-                <p>PHP is a complex language that has suffered years of twists, bends, stretches, and hacks.  It's highly inconsistent and sometimes buggy.  Each version has its own unique features, warts, and quirks, and it's hard to keep track of what version has what problems. It's easy to see why it gets as much hate as it does sometimes.</p>
-                <p>Despite that, it's the most popular language on the web today.  Because of its long history, you'll find lots of tutorials on how to do basic things like password hashing and database access.  The problem is that out of five tutorials, you have a good chance of finding five totally different ways of doing something.  Which way is the "right" way?  Do any of the other ways have subtle bugs or gotchas?  It's really hard to find out, and you'll be bouncing around the internet trying to pin down the right answer.</p>
-                <p>That's also one of the reasons why new PHP programmers are so frequently blamed for ugly, outdated, or insecure code.  They can't help it if the first Google result was a four-year-old article teaching a five-year-old method!</p>
-                <p>This document tries to address that.  It's an attempt to compile a set of basic instructions for what can be considered best practices for common and confusing issues and tasks in PHP.  If a low-level task has multiple and confusing approaches in PHP, it belongs here.</p>
+                <p>
+                    O PHP é uma linguagem complexa que por anos sofreu reviravoltas, mudanças de direções, extensões e
+                    cortes. Ele é bastante inconsistente e as vezes até bugado. Cada versão tem suas funcionaludades
+                    únicas e peculiaridades, e com isso fica difícil acompanhar as versões e seus problemas. Por isso
+                    é fácil entender por que as vezes ele é tão odiado.
+                </p>
+                <p>
+                    Apesar disso é a linguagem mais popular da web hoje. Por causa da sua lonha história, você irá
+                    encontrar um grande número de tutoriais e receitas de como fazer as coisas básicas, como criptografar
+                    senhas e acessar bancos de dados. O problema é que em cinco tutoriais você tem uma chance bem grande
+                    de encontrar cinco formas diferentes de se fazer cada uma dessas coisas. Qual então é o jeito "certo"?
+                    Todas as outras formas tem seus problemas e porens? É realmente bem difícil de saver, e você ficará
+                    vagando eternamente na internet em busca da resposta perfeita.
+                </p>
+                <p>
+                    Essa também é uma das razões que fazem com que novos programadores PHP sejam frequentemente criticados
+                    por código feio, ultrapassado e inseguro. Mas eles não podem melhorar isso se o primeiro resultado de
+                    uma busca no Google for um artigo de quatro anos atraa ensinando uma técnica de cinco anos atras!
+                </p>
+                <p>
+                    Esse documento tenta mirar nesse problema. É uma tentativa de compilar um conjunto de instruções
+                    básicas do que pode ser considerado uma melhor prática para problemas e tarefas comuns com PHP. Se
+                    uma técnica de baixo nível tem muitas resoluções possíveis e confusas, seu lugar é aqui.
+                </p>
         
-                <h4>O que é</h4> 
-                <p>It's a guide suggesting the best direction to take when facing one of the common <em>low-level</em> tasks a PHP programmer might encounter that are unclear because of the many options PHP might offer.  For example: connecting to a database is a common task with a large amount of possible solutions in PHP, not all of them good ones&mdash;thus, it's included in this document.</p>
-                <p>It's a series of short, introductory solutions.  Exemplos should get you up and running in a basic setting, and you should do your own research to flesh them out into something useful to you.</p>
-                <p>It points to what we consider the state-of-the-art of PHP.  However, this means that if you're using an older version of PHP, some of the features required to pull off these solutions might not be available to you.</p>
-                <p>This is a living document that I'll do my best to keep updated as PHP continues to evolve.</p>
+                <h4>O que é</h4>
+                <p>
+                    É um guia sugerinfo as melhores direções a serem tomandas quando der de cara com um desses problemas
+                    comuns de <em>baixo nível</em> que um programador PHP pode encontrar e que não esteja muito claro em
+                    virtude das muitas opções que o PHP pode oferecer. Por exemplo: conectar com um banco de dados é uma
+                    tarefa comum com uma gama enorme de soluções possíveis em PHP, nem todas sendo tão boas assim.
+                    <!-- Todo: What the hell means "it's included in this document" on this context? -->
+                </p>
+                <p>
+                    É uma serie de pequenas e introdutórias soluções. Exemplos que devem colocar você nos trilhos quando
+                    tratando de problemas básicos, e vocÊ também deve fazer sua própria pesquisa para tornar isso algo
+                    útil para você.
+                </p>
+                <p>
+                    Ele aponta para o que consideramos o estado de arte do PHP. Entretanto, isso significa que se você
+                    estiver usando uma versão mais antiga do PHP, algumas das funcionaludades necessárias para rodas essas
+                    soluções podem não estar disponíveis para você.
+                </p>
+                <p>
+                    Esse é um documento vivo e faremos o melhor possível para manter atualizado com a constante evolução
+                    do PHP.
+                </p>
 
                 <h4>O que <em>não é</em></h4>
-                <p>This document is not a PHP tutorial.  You should learn the basics and syntax of the language elsewhere.</p>
-                <p>It's not a guide to common web application problems like cookie storage, caching, coding style, documentation, and so on.</p>
-                <p>It's not a security guide.  While it touches upon some security-related issues, you're expected to do your own research when it comes to securing your PHP apps.  In particular, you should carefully review any solution proposed here before implementing it.  Your code is your own fault.</p>
-                <p>It's not an advocate of a certain coding style, pattern, or framework.</p>
-                <p>It's not an advocate for a certain way of doing high-level tasks like user registration, login systems, etc.  This document is strictly for <em>low-level</em> tasks that, because of PHP's long history, might be confusing or unclear.</p>
-                <p>It's not a be-all and end-all solution, nor is it the <em>only</em> solution.  Some of the methods described below might not be what's best for your particular situation, and there are lots of different ways of achieving the same ends.  In particular, high-load web apps might benefit from more esoteric solutions to some of these problems.</p>
+                <p>
+                    Esse documento não é um tororial de PHP. Você deve aprender as questões básicas de sintaxe da linguagem
+                    em algum outro lugar.
+                </p>
+                <p>
+                    Não é um guia de problemas comuns de aplicações web como armazenamento de cookies, cache, estilo de
+                    codigo, documentação e assim por diante
+                </p>
+                <p>
+                    Não é um guia de segurança. Apesar de abrodar algumas questões relacionadas a segurança, espera-se que
+                    você faça sua própria pesquisa quando se tratar da segurança das suas aplicações em PHP. Em particular
+                    você deve revisar cuidadosamente qualquer solução proposta aqui antes de implementa-la, afinal, seu
+                    código é problema seu.
+                </p>
+                <p>
+                    Não é um defensor de nenhum estilo de código, padrão de desenvolvimento ou framework.
+                </p>
+                <p>
+                    Não é um defensor de nenhum modo de realizar tarefas mais complexas como gerenciamento de usuários,
+                    sistemas de acesso e etc. Esse documento é estritamente focado em tarefas de <em>baixo nível</em> que,
+                    por causa da lona história do PHP, podem ser confusas e não serem claras
+                </p>
+               <p>
+                   Não é uma solução definitiva, nem mesmo a <em>única</em> solução. Alguns dos métodos descritos abaixo
+                   podem não ser os melhores para determinadas situações em particular, e sempre existem varios jeitos
+                   diferentes de se chegar ao mesmo fim. Em particular aplicações com alto trafego podem se beneficiar
+                   de estratégias não muito convencionais para determinados problemas
+               </p>
             </section>
         
         
