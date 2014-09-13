@@ -142,18 +142,18 @@
             <section id="passwords">
                 <h2>Armazenando senhas</h2>
                 <h3>Use as funções embutidas de <a href="http://www.php.net/manual/en/book.password.php">password hashing</a> para fazer hash e comparar senhas.</h3>
-                <p>Hashing is the standard way of protecting a user's password before it's stored in a database.  Many common hashing algorithms like md5 and even sha1 are unsafe for storing passwords, because <a href="http://arstechnica.com/security/2013/05/how-crackers-make-minced-meat-out-of-your-passwords/">hackers can easily crack passwords hashed using those algorithms</a>.</p>
-                <p>PHP provides a built-in password hashing library that uses the bcrypt algorithm, currently considered the best algorithm for password hashing.</p>
+                <p>Hash é a maneira padrão de proteger uma senha de usuário antes de armazená-la numa banco de dados. Muitos dos algoritmos comuns, como o md5 ou até o sha1, são inseguros para armazenar senhas porque <a href="http://arstechnica.com/security/2013/05/how-crackers-make-minced-meat-out-of-your-passwords/">hackers podem facilmente crackear senhas hasheadas com esses algoritmos</a>.</p>
+                <p>O PHP fornece uma biblioteca embutida para hash de senhas que usa o algoritmo bcrypt, atualmente considerado o melhor algoritmo para hash de senhas.</p>
                 
                 <h4>Exemplo</h4>
                 <code class="php">
                 &lt;?php
-                // Hash the password.  $hashedPassword will be a 60-character string.
+                // Faz o hash da senha.  $hashedPassword será uma string de 60 caracteres.
                 $hashedPassword = password_hash('my super cool password', PASSWORD_DEFAULT);
         
-                // You can now safely store the contents of $hashedPassword in your database!
+                // Agora você pode armazenar de forma segura o conteúdo de $hashedPassword no seu banco de dados!
         
-                // Check if a user has provided the correct password by comparing what they typed with our hash
+                // Verifica se um usuário forneceu a senha correta comparando o que ele digitou com nosso hash
                 password_verify('the wrong password', $hashedPassword); // false
         
                 password_verify('my super cool password', $hashedPassword); // true
@@ -161,36 +161,36 @@
                 
                 <h4>Pegadinhas</h4>
                 <ul>
-                    <li>Many sources will recommend that you also "salt" your password before hashing it.  That's a great idea, and password_hash() <em>already salts your password for you</em>.  That means that you don't have to salt it yourself.</li>
+                    <li>Muitas fontes irão recomendar que você também aplique um "salt" na sua senha antes de fazer o hash. Essa é uma boa ideia, e a função password_hash() <em>já aplica o salt para você</em>. Isso significa que você não precisa aplicar o salt por conta própria.</li>
                 </ul>
                 
                 <h4>Mais informações</h4>
                 <ul>
-                    <li><a href="http://blogs.msdn.com/b/lixiong/archive/2011/12/25/md5-sha1-salt-and-bcrypt.aspx">Why hashing passwords with md5 or sha is unsafe</a></li>
-                    <li><a href="http://codahale.com/how-to-safely-store-a-password/">How to safely store a password</a></li>
+                    <li><a href="http://blogs.msdn.com/b/lixiong/archive/2011/12/25/md5-sha1-salt-and-bcrypt.aspx">Why hashing passwords with md5 or sha is unsafe (Por que fazer hash de senhas com md5 ou sha é inseguro)</a></li>
+                    <li><a href="http://codahale.com/how-to-safely-store-a-password/">How to safely store a password (Como armazenar uma senha de forma segura)</a></li>
                 </ul>
                 
                 <aside>
                     <h3>Ubuntu 12.04 (PHP &lt;= 5.3.10)<br />
                     Use a biblioteca <a href="http://www.openwall.com/phpass/">phpass</a> para fazer hash e comparar senhas.</h3>
-                    <p><em>Tested with <a href="http://www.openwall.com/phpass/">phpass</a> 0.3.</em></p>
-                    <p>The built-in PHP password hashing library isn't available in the version of PHP installed in 12.04.  Instead, use the open-source <a href="http://www.openwall.com/phpass/">phpass</a> library, which provides the same bcrypt-based functionality in an easy-to-use class.</p>
+                    <p><em>Testado com o <a href="http://www.openwall.com/phpass/">phpass</a> 0.3.</em></p>
+                    <p>A biblioteca de hash de senhas embutida no PHP não está disponível na versão do PHP instalada no Ubuntu 12.04. Em vez dela, utilize a biblioteca open-source <a href="http://www.openwall.com/phpass/">phpass</a>, que fornece a mesma funcionalidade baseada no bcrypt em uma classe fácil de usar.</p>
         
                     <h4>Exemplo</h4>
                     <code class="php">
                     &lt;?php
-                    // Include the phpass library
+                    // Inclui a biblioteca phpass
                     require_once('phpass-0.3/PasswordHash.php');
         
-                    // Initialize the hasher without portable hashes (this is more secure)
+                    // Inicializa o hasher sem hashes portáteis (mais seguro)
                     $hasher = new PasswordHash(8, false);
         
-                    // Hash the password.  $hashedPassword will be a 60-character string.
+                    // Faz o hash da senha.  $hashedPassword será uma string de 60 caracteres.
                     $hashedPassword = $hasher->HashPassword('my super cool password');
         
-                    // You can now safely store the contents of $hashedPassword in your database!
+                    // Agora você pode armazenar de forma segura o conteúdo de $hashedPassword no seu banco de dados!
         
-                    // Check if a user has provided the correct password by comparing what they typed with our hash
+                    // Verifica se um usuário forneceu a senha correta comparando o que ele digitou com nosso hash
                     $hasher->CheckPassword('the wrong password', $hashedPassword); // false
         
                     $hasher->CheckPassword('my super cool password', $hashedPassword); // true
@@ -203,7 +203,7 @@
                     
                     <h4>Pegadinhas</h4>
                     <ul>
-                        <li>Just like password_hash() in new versions of PHP, phpass automatically salts your password for you.</li>
+                        <li>Assim como na função password_hash() das novas versões do PHP, a biblioteca phpass aplica o salt na sua senha automaticamente para você.</li>
                     </ul>
                 </aside>
             </section>
