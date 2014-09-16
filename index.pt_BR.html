@@ -211,19 +211,19 @@
             <section id="mysql">
                 <h2>Conectando e consultando um banco de dados MySQL</h2>
                 <h3>Use a <a href="http://php.net/manual/en/book.pdo.php">PDO</a> e sua funcionalidade de prepared statement.</h3>
-                <p>There are many ways to connect to a MySQL database in PHP.  <a href="http://php.net/manual/en/book.pdo.php">PDO</a> (PHP Data Objects) is the newest and most robust of them.  PDO has a consistent interface across many different types of database, uses an object-oriented approach, and supports more features offered by newer databases.</p>
-                <p>You should use PDO's prepared statement functions to help prevent SQL injection attacks.  Using the <a href="http://php.net/manual/en/pdostatement.bindvalue.php">bindValue()</a> function ensures that your SQL is safe from first-order SQL injection attacks.  (This isn't 100% foolproof though, see <a href="#pdo-further-reading">Mais informações</a> for more details.)  In the past, this had to be achieved with some arcane combination of "magic quote" functions.  PDO makes all that gunk unnecessary.</p>
+                <p>Existem muitas formas de conectar um banco de dados MySQL no PHP. A <a href="http://php.net/manual/en/book.pdo.php">PDO</a> (PHP Data Objects) é a mais nova e robusta delas. A PDO tem uma interface consistente entre vários tipos diferentes de bancos de dados, usa uma abordagem orientada a objetos e suporta mais funcionalidades oferecidas pelos bancos de dados mais novos.</p>
+                <p>Você deve usar as funções de prepared statement (instruções preparadas) do PDO para ajudar na prevenção de ataques de SQL injection (injeção de SQL). Usar a função <a href="http://php.net/manual/en/pdostatement.bindvalue.php">bindValue()</a> garante que seu SQL está seguro contra ataques de SQL injection de primeira ordem. (Ela não é 100% segura no entanto, leia <a href="#pdo-further-reading">Mais informações</a> para mais detalhes. ) No passado, isso era conseguido com algumas combinações misteriosas de funções "magic quote". O PDO torna toda aquela gosma desnecessária.</p>
         
                 <h4>Exemplo</h4>
                 <code class="php">
                 &lt;?php
                 try{
-                    // Create a new connection.
-                    // You'll probably want to replace hostname with localhost in the first parameter.
-                    // Note how we declare the charset to be utf8mb4.  This alerts the connection that we'll be passing UTF-8 data.  This may not be required depending on your configuration, but it'll save you headaches down the road if you're trying to store Unicode strings in your database.  See "Pegadinhas".
-                    // The PDO options we pass do the following:
-                    // \PDO::ATTR_ERRMODE enables exceptions for errors.  This is optional but can be handy.
-                    // \PDO::ATTR_PERSISTENT disables persistent connections, which can cause concurrency issues in certain cases.  See "Pegadinhas".
+                    // Cria uma nova conexão.
+                    // Você vai provavelmente querer trocar o hostname por localhost no seu primeiro parâmetro.
+                    // Veja que declaramos o charset (codificação de caracteres) como utf8mb4. Isso alerta a conexão de que passaremos dados UTF-8. Talvez nem seja obrigatório dependendo da sua configuração, mas pode te livrar de dores de cabeça se você estiver tentando armazenar strings Unicode em seu banco de dados. Veja "Pegadinhas".
+                    // As opções PDO que passamos são as seguintes:
+                    // \PDO::ATTR_ERRMODE habilita as exceções para erros. É opcional, mas pode ser útil.
+                    // \PDO::ATTR_PERSISTENT desabilita conexões persistentes, que podem causar problemas de concorrência em certos casos. Veja "Pegadinhas".
                     $link = new \PDO(   'mysql:host=your-hostname;dbname=your-db;charset=utf8mb4', 
                                         'your-username', 
                                         'your-password', 
@@ -235,18 +235,18 @@
 
                     $handle = $link->prepare('select Username from Users where UserId = ? or Username = ? limit ?');
 
-                    // PHP bug: if you don't specify PDO::PARAM_INT, PDO may enclose the argument in quotes.  This can mess up some MySQL queries that don't expect integers to be quoted.
-                    // See: https://bugs.php.net/bug.php?id=44639
-                    // If you're not sure whether the value you're passing is an integer, use the is_int() function.
+                    // Bug do PHP: se você não especificar PDO::PARAM_INT, a PDO pode colocar aspas no argumento. Isso pode bagunçar algumas queries do MySQL que não esperam que números inteiros tenham aspas em volta.
+                    // Veja: https://bugs.php.net/bug.php?id=44639
+                    // Se você não tiver certeza se um valor que está passando é um número inteiro, use a função is_int().
                     $handle->bindValue(1, 100, PDO::PARAM_INT);
                     $handle->bindValue(2, 'Bilbo Baggins');
                     $handle->bindValue(3, 5, PDO::PARAM_INT);
 
                     $handle->execute();
 
-                    // Using the fetchAll() method might be too resource-heavy if you're selecting a truly massive amount of rows.
-                    // If that's the case, you can use the fetch() method and loop through each result row one by one.
-                    // You can also return arrays and other things instead of objects.  See the PDO documentation for details.
+                    // Usar o método fetchAll() pode ser muito custoso se você estiver consultando um número realmente grande de registros.
+                    // Se esse é o caso, você pode usar o método fetch() e percorrer cada resultado num laço linha por linha.
+                    // Você também pode retornar arrays e outras coisas em vez de objetos. Veja a documentação da PDO para detalhes.
                     $result = $handle->fetchAll(\PDO::FETCH_OBJ);
 
                     foreach($result as $row){
@@ -260,20 +260,20 @@
         
                 <h4>Pegadinhas</h4>
                 <ul>
-                    <li>Not passing the PDO::PARAM_INT parameter when binding integer variables can sometimes cause PDO to quote them.  This can screw up certain MySQL queries.  See <a href="https://bugs.php.net/bug.php?id=44639">this bug report</a>.</li>
-                    <li>Not having set the character set to utf8mb4 in the connection string might cause Unicode data to be stored incorrectly in your database, depending on your configuration.</li>
-                    <li>Even if you declare your character set to be utf8mb4, make sure that your actual database tables are in the utf8mb4 character set.  For why we use utf8mb4 instead of just utf8, check the <a href="#utf-8">PHP e UTF-8</a> section.</li>
-                    <li>Enabling persistent connections can possibly lead to weird concurrency-related issues.  This isn't a PHP problem, it's an app-level problem.  Persistent connections are safe to use as long as you consider the consequences.  See <a href="http://stackoverflow.com/questions/3332074/what-are-the-disadvantages-of-using-persistent-connection-in-pdo">this Stack Overflow question</a>.</li>
-                    <li>You can execute more than one SQL statement in a single execute() call.  Just separate the statements with semicolons.  <b>Ubuntu 12.04 (PHP &lt;= 5.3.10):</b> If doing this, beware of <a href="https://bugs.php.net/bug.php?id=61207">this bug</a>, which isn't fixed in the version of PHP shipped with Ubuntu 12.04.</li>
+                    <li>Não passar o parâmetro PDO::PARAM_INT quando faz o binding de variáveis do tipo integer pode fazer com que o PDO coloque aspas em volta delas às vezes. Isso pode estragar certas queries do MySQL. Veja <a href="https://bugs.php.net/bug.php?id=44639">esse relatório de bug</a>.</li>
+                    <li>Não definir o charset como utf8mb4 na sua string de conexão pode fazer com que os dados Unicode sejam armazenados incorretamente no seu banco de dados dependendo de sua configuração.</li>
+                    <li>Mesmo se você declarar seu charset como utf8mb4, garanta que suas tabelas reais no banco de dados também estejam. Se quiser saber porque usamos o utf8mb4 em vez de apenas utf8, veja a seção <a href="#utf-8">PHP e UTF-8</a>.</li>
+                    <li>Habilitar conexões persistentes possivelmente levará a problemas estranhos relacionados a concorrência. Este não é um problema do PHP, é um problema em nível de aplicação. Conexões persistentes são seguras de se usar desde que você considere as consequências. Veja <a href="http://stackoverflow.com/questions/3332074/what-are-the-disadvantages-of-using-persistent-connection-in-pdo"> esta pergunta no Stack Overflow</a>.</li>
+                    <li>Você pode executar mais de uma instrução SQL em uma única chamada execute(). Apenas separe as instruções por ponto-e-vírgula. <b>Ubuntu 12.04 (PHP &lt;= 5.3.10):</b> Se fizer isso, cuidado com <a href="https://bugs.php.net/bug.php?id=61207">esse bug</a>, que não foi arrumado na versão do PHP que vem no Ubuntu 12.04.</li>
                 </ul>
         
                 <h4 id="pdo-further-reading">Mais informações</h4>
                 <ul>
-                    <li><a href="http://php.net/manual/en/book.pdo.php">PHP Manual: PDO</a></li>
-                    <li><a href="http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/">Why you should be using PHP's PDO for database access</a></li>
+                    <li><a href="http://php.net/manual/en/book.pdo.php">Manual do PHP: PDO</a></li>
+                    <li><a href="http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/">Why you should be using PHP's PDO for database access (Por que você deveria usar a PDO do PHP para acesso a banco de dados)</a></li>
                     <li><a href="http://stackoverflow.com/questions/1402017/php-pdo-vs-normal-mysql-connect">Stack Overflow: PHP PDO vs normal mysql_connect</a></li>
-                    <li><a href="http://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection">Stack Overflow: Are PDO prepared statements sufficient to prevent SQL injection?</a></li>
-                    <li><a href="https://stackoverflow.com/questions/1650591/whether-to-use-set-names">Stack Overflow: Whether to use "SET NAMES"</a></li>
+                    <li><a href="http://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection">Stack Overflow: Are PDO prepared statements sufficient to prevent SQL injection? (Prepared statements da PDO são suficientes para prevenir SQL injection?)</a></li>
+                    <li><a href="https://stackoverflow.com/questions/1650591/whether-to-use-set-names">Stack Overflow: Whether to use "SET NAMES" ("SET NAMES" deve ser utilizado?)</a></li>
                 </ul>
             </section>
 
