@@ -280,19 +280,19 @@
             <section id="php-tags">
                 <h2>Tags PHP</h2>
                 <h3>Use &lt;?php ?&gt;.</h3>
-                <p>There are a few different ways to delimit blocks of PHP: &lt;?php ?&gt;, &lt;?= ?&gt;, &lt;? ?&gt;, and &lt;% %&gt;.  While the shorter ones might be more convenient to type, the only one that's guaranteed to work on all PHP servers is &lt;?php ?&gt;.  If you ever plan on deploying your PHP to a server whose configuration you can't control, then you should always use &lt;?php ?&gt;.</p>
-                <p>If you're only coding for yourself and have control over the PHP configuration you'll be using, you might find the shorter tags to be more convenient.  But remember that &lt;? ?&gt; might conflict with XML declarations and &lt;% %&gt; is actually ASP style.</p>
-                <p>Whatever you choose, make sure you stay consistent!</p>
+                <p>Existe um punhado de maneiras diferentes de delimitar blocos de código PHP: &lt;?php ?&gt;, &lt;?= ?&gt;, &lt;? ?&gt;e &lt;% %&gt;. Mesmo que as mais curtas possam ser mais convenientes para digitar, a único que é garantido que funciona em todos os servidores PHP é a &lt;?php ?&gt;. Se você ao menos pensa em fazer deploy da sua aplicação PHP em um servidor cuja configuração você não pode controlar, você deve sempre usar a &lt;?php ?&gt;.</p>
+                <p>Se você estiver programando para você mesmo e tiver controle da configuração do PHP que irá usar, você pode achar que as tags mais curtas sejam mais convenientes. Mas lembre-se que &lt;? ?&gt; pode conflitar com declarações XML e &lt;% %&gt; é na verdade a tag do ASP.</p>
+                <p>Não importa o que escolher, certifique-se de ser consistente!</p>
             
                 <h4>Pegadinhas</h4>
                 <ul>
-                    <li>When including a closing ?&gt; tag in a pure PHP file (for example, in a file that only contains a class definition), <em>make sure not to leave any trailing newlines after it</em>.  While the PHP parser safely "eats" a single newline character after the closing tag, any other newlines might be outputted to the browser and possibly confuse things if you're outputting any HTTP headers later.</li>
-                    <li>When writing a web app targeting older versions of IE, make sure not to leave a newline between any closing ?&gt; tag and the html &lt;!doctype&gt; tag.  Old versions of IE will enter <a href="http://www.quirksmode.org/css/quirksmode.html">quirks mode</a> if they encounter any white space, including newlines, before the doctype declaration.  This isn't an issue for newer versions of IE and other, more advanced browsers.  (Read: every other browser besides IE.)</li>
+                    <li>Quando incluir uma tag de fechamento ?&gt; em um arquivo de PHP puro (por exemplo, em um arquivo que contém apenas uma definição de classe), <em>certifique-se de não colocar nenhuma quebra de linha depois dela</em>. Apesar do parser do PHP "engolir" de forma segura um caractere único de quebra de linha depois de uma tag de fechamento, outras quebras de linha adicionais podem ser mostradas no navegador e bagunçar as coisas se você for enviar algum cabeçalho HTTP em seguida.</li>
+                    <li>Quando escrever uma aplicação web para versões antigas do IE, certifique-se de não colocar nenhuma quebra de linha entre uma tag de fechamento ?&gt; e a tag &lt;!doctype&gt; do html. Versões antigas do IE entram em <a href="http://www.quirksmode.org/css/quirksmode.html">quirks mode (modo de compatibilidade)</a> se acharam algum espaço em branco, inclusive quebras de linha, antes da declaração do doctype. Esse não é um problema em novas versões do IE e nem em outros navegadores, mais avançados (Leia como: qualquer navegador além do IE).
                 </ul>
             
                 <h4>Mais informações</h4>
                 <ul>
-                    <li><a href="http://stackoverflow.com/questions/200640/are-php-short-tags-acceptable-to-use">Stack Overflow: Are PHP short tags acceptable to use?</a></li>
+                    <li><a href="http://stackoverflow.com/questions/200640/are-php-short-tags-acceptable-to-use">Stack Overflow: Are PHP short tags acceptable to use? (É aceitável usar tags curtas do PHP?)</a></li>
                 </ul>
             </section>
 
