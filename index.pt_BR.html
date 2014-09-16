@@ -329,14 +329,14 @@
             <section id="quotes">
                 <h2>Aspas duplas versus aspas simples olhando pela performance</h2>
                 <h3>Não importa, de verdade.</h3>
-                <p>A lot of ink has been spilled about whether to define strings with single quotes (') or double quotes (").  Single-quoted strings aren't parsed, so whatever you've put in the string, that's what will show up.  Double-quoted strings are parsed and any PHP variables in the string are evaluated.  Additionally, escaped characters like \n for newline and \t for tab <i>are not</i> evaluated in single-quoted strings, but <i>are</i> evaluated in double-quoted strings.</p>
-                <p>Because double-quoted strings are evaluated at run time, the theory is that using single-quoted strings will improve performance because PHP won't have to evaluate every single string.  While this might be true on a certain scale, for the average real-life application the difference is so small that it doesn't really matter.  So for an average app, it doesn't matter what you choose.  For <em>extremely</em> high-load apps, it might matter a little.  Make a choice depending on what your app needs, but whatever you choose, be consistent.</p>
+                <p>Já deu muito o que falar a discussão se devemos definir strings com aspas simples (') ou aspas duplas ("). Strings com aspas simples não são interpretadas, assim, tudo que você colocar na string será mostrado. Strings com aspas duplas são interpretadas e variáveis PHP na string também são. Adicionalmente, caracteres de escape, como \n para quebra de linha e \t para tabulação, <i>não são</i> interpretados nas strings com aspas simples, mas <i>são</i> interpretados nas strings com aspas duplas.</p>
+                <p>Como as strings com aspas duplas são avaliadas em tempo de execução, a teoria é que usar strings com aspas simples aumentaria a performance pois o PHP não teria que interpretar cada uma das strings. Mesmo com isso sendo verdade num certo ponto, para as aplicações médias do dia-a-dia a diferença é tão pequena que realmente não importa. Assim, para uma aplicação média, não importa o que você escolha. Para aplicações <em>extremamente</em> requisitadas, pode fazer um pouco de diferença. Tome sua decisão dependendo do que sua aplicação vai precisar, mas, não importa qual escolha, seja consistente.</p>
         
                 <h4>Mais informações</h4>
                 <ul>
                     <li><a href="http://php.net/manual/en/language.types.string.php">PHP Manual: Strings</a></li>
-                    <li><a href="http://phpbench.com/">The PHP Benchmark</a> (Scroll down to Quote Types)</li>
-                    <li><a href="http://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php">Stack Overflow: Is there a performance benefit to single quotes vs double quotes in PHP?</a></li>
+                    <li><a href="http://phpbench.com/">The PHP Benchmark</a> (Role a página até Quote Types)</li>
+                    <li><a href="http://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php">Stack Overflow: Is there a performance benefit to single quotes vs double quotes in PHP? (Existe um benefício de performance se usar aspas simples em vez de aspas duplas no PHP?)</a></li>
                 </ul>
             </section>
             
