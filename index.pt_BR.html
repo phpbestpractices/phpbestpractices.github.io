@@ -344,54 +344,54 @@
             <section id="constants">
                 <h2>define() versus const</h2>
                 <h3>Use <a href="http://www.php.net/manual/en/function.define.php">define()</a> a menos que você tenha que se preocupar com legibilidade, constantes de classe ou micro-otimizações.</h3>
-                <p>Traditionally in PHP you would define constants using the <a href="http://www.php.net/manual/en/function.define.php">define()</a> function.  But at some point PHP gained the ability to also declare constants with the <a href="http://php.net/manual/en/language.oop5.constants.php">const</a> keyword.  Which one should you use when defining your constants?</p>
-                <p>The answer lies in the little differences between the two methods.</p>
+                <p>No PHP tradicionalmente constantes são definidas usando a função <a href="http://www.php.net/manual/en/function.define.php">define()</a>. Mas, em algum momento, o PHP passou a também poder declarar constantes através da palavra-chave <a href="http://php.net/manual/en/language.oop5.constants.php">const</a>. Qual delas você devia usar para quando for definir suas constantes?</p>
+                <p>A resposta está nas pequenas diferenças entre as duas maneiras.</p>
                 <ol>
-                    <li>define() defines constants at run time, while const defines constants at compile time.  This gives const a very slight speed edge, but not one worth worrying about unless you're building large-scale software.</li>
-                    <li>define() puts constants in the global scope, although you can include namespaces in your constant name.  That means you can't use define() to define class constants.</li>
-                    <li>define() lets you use expressions both in the constant name and in the constant value, unlike const which allows neither.  This makes define() much more flexible.</li>
-                    <li>define() can be called within an if() block, while const cannot.</li>
+                    <li>a função define() define constantes em tempo de execução, enquanto a palavra-chave const define constantes em tempo de compilação. Isso dá a const um ganho bem pequeno de velocidade, mas não o suficiente para se preocupar com isso, a menos que você esteja construindo um software de larga escala.</li>
+                    <li>define() coloca as constantes no escopo global, embora você possa incluir namespaces ao nome de sua constante. Isso significa que você não pode usar define() para definir constantes de classe.</li>
+                    <li>define() permite que você use expressões tanto no nome da constante quanto em seu valor, diferente de const, que não permite nenhum dos dois. Isso torna define() muito mais flexível.</li>
+                    <li>define() pode ser chamada dentro de um bloco if(), enquanto const não.</li>
                 </ol>
             
                 <h4>Exemplo</h4>
                 <code class="php">
                 &lt;?php
-                // Let's see how the two methods treat namespaces
+                // Vejamos como os dois métodos tratam namespaces
                 namespace MiddleEarth\Creatures\Dwarves;
                 const GIMLI_ID = 1;
                 define('MiddleEarth\Creatures\Elves\LEGOLAS_ID', 2);
             
                 echo(\MiddleEarth\Creatures\Dwarves\GIMLI_ID);  // 1
-                echo(\MiddleEarth\Creatures\Elves\LEGOLAS_ID);  // 2; note that we used define(), but the namespace is still recognized
+                echo(\MiddleEarth\Creatures\Elves\LEGOLAS_ID);  // 2; veja que usamos define(), mas o namespace ainda é reconhecido
             
-                // Now let's declare some bit-shifted constants representing ways to enter Mordor.
+                // Agora declaramos algumas constantes com bits deslocados representando modos de entrar em Mordor.
                 define('TRANSPORT_METHOD_SNEAKING', 1 &lt;&lt; 0); // OK!
-                const TRANSPORT_METHOD_WALKING = 1 &lt;&lt; 1; // Compile error! const can't use expressions as values
+                const TRANSPORT_METHOD_WALKING = 1 &lt;&lt; 1; // Erro de compilação! const não pode usar expressões como valor
             
-                // Next, conditional constants.
+                // Em seguida, constantes condicionais.
                 define('HOBBITS_FRODO_ID', 1);
             
                 if($isGoingToMordor){
                     define('TRANSPORT_METHOD', TRANSPORT_METHOD_SNEAKING); // OK!
-                    const PARTY_LEADER_ID = HOBBITS_FRODO_ID // Compile error: const can't be used in an if block
+                    const PARTY_LEADER_ID = HOBBITS_FRODO_ID // Erro de compilação: const não pode ser usado em um bloco if
                 }
             
-                // Finally, class constants
+                // Por fim, constantes de classe
                 class OneRing{
                     const MELTING_POINT_CELSIUS = 1000000; // OK!
-                    define('MELTING_POINT_ELVISH_DEGREES', 200); // Compile error: can't use define() within a class
+                    define('MELTING_POINT_ELVISH_DEGREES', 200); // Erro de compilação: não se pode usar define() dentro de uma classe
                 }
                 ?&gt;</code>
             
-                <p>Because define() is ultimately more flexible, it's the one you should use to avoid headaches unless you specifically require class constants.  Using const generally results in more readable code, but at the expense of flexibility.</p>
+                <p>Como no fim define() é mais flexível, você deveria usá-lo para evitar dor de cabeça, a menos que você realmente precise de constantes de classe. Usar const geralmente resulta em código mais legível, mas perde-se na flexibilidade.</p>
             
-                <p>Whichever one you use, be consistent!</p>
+                <p>Não importa qual você use, seja consistente!</p>
             
                 <h4>Mais informações</h4>
                 <ul>
                     <li><a href="http://stackoverflow.com/questions/2447791/define-vs-const">Stack Overflow: define() vs const</a></li>
-                    <li><a href="http://www.php.net/manual/en/language.constants.syntax.php">PHP Manual: Constants</a></li>
-                    <li><a href="http://stackoverflow.com/questions/1225082/define-vs-variable-in-php">Stack Overflow: define() vs variable</a></li>
+                    <li><a href="http://www.php.net/manual/en/language.constants.syntax.php">PHP Manual: Constantes</a></li>
+                    <li><a href="http://stackoverflow.com/questions/1225082/define-vs-variable-in-php">Stack Overflow: define() vs variable (funcão define() versus variável)</a></li>
                 </ul>
             </section>
 
