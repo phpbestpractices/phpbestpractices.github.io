@@ -398,9 +398,9 @@
             <section id="opcode-cache">
                 <h2>Cache de opcode PHP</h2>
                 <h3>Que sorte: o PHP já tem embutido o cache de opcode!</h3>
-                <p>In older versions of PHP, every time a script was executed it would have to be compiled from scratch, even if it had been compiled before.  Opcode caches were additional software that saved previously compiled versions of PHP, speeding things up a bit.  There were various flavors of caches you could choose from.</p>
-                <p>Lucky for us, the version of PHP that ships with Ubuntu 14.04 <em>includes a built-in opcode cache</em> that's turned on by default.  So there's nothing for you to do!</p>
-                <p>For posterity, below are instructions for using an opcode cache in Ubuntu 12.04, which doesn't include its own.</p>
+                <p>Em versões antigas do PHP, cada vez que um script era executado ele precisava ser compilado do início, mesmo se ele já tivesse sido compilado anteriormente. Os caches de opcode eram softwares adicionais que guardavam versões de código PHP previamente compilados, acelerando um pouco as coisas. Haviam muitas opções de cache que você poderia usar.</p>
+                <p>Felizmente para nós, a versão do PHP que vem com o Ubuntu 14.04 <em>inclui um cache de opcode embutido</em> que vem ligado por padrão. Assim, você não precisa fazer nada!</p>
+                <p>Para a posteridade, abaixo seguem algumas instruções de como usar um cache de opcode no Ubuntu 12.04, que não vem com um embutido.</p>
                 
                 <h4>Mais informações</h4>
                 <ul>
@@ -409,17 +409,17 @@
                 
                 <aside>
                     <h3>Ubuntu 12.04 (PHP &lt;= 5.3.10)<br />
-                    Use o <a href="http://php.net/manual/en/book.apc.php">APC</a> como para cache de opcode.</h3>
-                    <p>There are several PHP opcode caches available, notably <a href="http://sourceforge.net/projects/eaccelerator/">eaccelerator</a>, <a href="http://xcache.lighttpd.net/">xcache</a>, and <a href="http://php.net/manual/en/book.apc.php">APC</a>.  APC is officially supported by the PHP project, is the most active, and is the easiest to install.  It also provides an optional <a href="http://memcached.org/">memcached</a>-like persistent key-value store.  For these reasons, it's the one you should be using.</p>
+                    Use o <a href="http://php.net/manual/en/book.apc.php">APC</a> para cache de opcode.</h3>
+                    <p>Existem muitos caches de opcode PHP disponíveis, em especial o <a href="http://sourceforge.net/projects/eaccelerator/">eaccelerator</a>, o <a href="http://xcache.lighttpd.net/">xcache</a> e o <a href="http://php.net/manual/en/book.apc.php">APC</a>. O APC é oficialmente apoiado pelo projeto PHP, é o mais ativo e o mais fácil de instalar. Ele também fornece opcionalmente um armazenamento de chave-valor persistente parecido com o <a href="http://memcached.org/">memcached</a>. Por essas razões, você deveria usá-lo.</p>
         
                     <h4>Instalação do APC</h4>
-                    <p>You can install APC on Ubuntu 12.04 by running this command in your terminal:</p>
+                    <p>Você pode instalar o APC no Ubuntu 12.04 executando este comando no seu terminal:</p>
                     <code class="terminal">sudo apt-get install php-apc</code>
-                    <p>No further configuration is necessary.</p>
+                    <p>Nenhuma outra configuração é necessária.</p>
                     
                     <h4>Pegadinhas</h4>
                     <ul>
-                        <li>If you're not using <a href="#serving-php">PHP-FPM</a> (for example you're using <a href="http://stackoverflow.com/questions/2712825/what-is-mod-php">mod_php</a> or <a href="http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html">mod_fastcgi</a>), each PHP process will have its unique APC instance, including key-value store.  This can lead to synchronization problems in your app code if you're not careful.</li>
+                        <li>Se você não estiver usando o <a href="#serving-php">PHP-FPM</a> (por exemplo, estiver usando o <a href="http://stackoverflow.com/questions/2712825/what-is-mod-php">mod_php</a> ou o <a href="http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html">mod_fastcgi</a>), cada um dos processos PHP terá uma instância do APC própria, inclusive o armazenamento de chave-valor. Isso pode levar a problemas de sincronização no código da sua aplicação se você não tomar cuidado.</li>
                     </ul>
                     
                     <h4>Mais informações</h4>
