@@ -78,7 +78,7 @@
                 <li><a href="#passwords">Armazenando senhas</a></li>
                 <li><a href="#mysql">PHP e MySQL</a></li>
                 <li><a href="#php-tags">Tags PHP</a></li>
-                <li><a href="#auto-loading">Auto-loading de classes</a></li>
+                <li><a href="#auto-loading">Autoloading de classes</a></li>
                 <li><a href="#quotes">Aspas duplas versus aspas simples</a></li>
                 <li><a href="#constants">define() versus const</a></li>
                 <li><a href="#opcode-cache">Cache de opcode PHP</a></li>
@@ -297,32 +297,33 @@
             </section>
 
             <section id="auto-loading">
-                <h2>Auto-loading de classes</h2>
-                <h3>Use a função <a href="http://php.net/manual/en/function.spl-autoload-register.php">spl_autoload_register()</a> para registrar sua função auto-load.</h3>
-                <p>PHP provides several ways to auto-load files containing classes that haven't yet been loaded.  The older way is to use a magic global function called <a href="http://php.net/manual/en/function.autoload.php">__autoload()</a>.  However you can only have one __autoload() function defined at once, so if you're including a library that <i>also</i> uses the __autoload() function, then you'll have a conflict.</p>
-                <p>The correct way to handle this is to name your autoload function something unique, then register it with the <a href="http://php.net/manual/en/function.spl-autoload-register.php">spl_autoload_register()</a> function.  This function allows more than one __autoload() function to be defined, so you won't step on any other code's own __autoload() function.</p>
+                <h2>Autoloading de classes (carregamento automático de classes)</h2>
+                <h3>Use a função <a href="http://php.net/manual/en/function.spl-autoload-register.php">spl_autoload_register()</a> para registrar sua função de autoloading.</h3>
+                <p>O PHP tem várias maneiras de carregar automaticamente arquivos contendo classes que não tinham sido carregadas ainda. A maneira mais antiga é usar uma função global mágica chamada <a href="http://php.net/manual/en/function.autoload.php">__autoload()</a>. No entanto, você só pode ter uma função __autoload definida por vez, assim, se você estiver incluindo uma biblioteca que <i>também</i> usou a função __autoload(), acontecerá um conflito.</p>
+                <p>O jeito correto de lidar com isso é dar a sua função de autoload um nome único, depois registrá-la com a função <a href="http://php.net/manual/en/function.spl-autoload-register.php">spl_autoload_register()</a>. Essa função permite que mais de uma função __autoload() seja definida, dessa forma você não conflita com nenhum outro código que tenha um __autoload() próprio.</p>
         
                 <h4>Exemplo</h4>
                 <code class="php">
                 &lt;?php
-                // First, define your auto-load function.
+                // Primeiro, defina sua função autoload.
                 function MyAutoload($className){
                     include_once($className . '.php');
                 }
         
-                // Next, register it with PHP.
+                // Depois, registre-a no PHP.
                 spl_autoload_register('MyAutoload');
         
-                // Try it out!
-                // Since we haven't included a file defining the MyClass object, our auto-loader will kick in and include MyClass.php.
-                // For this example, assume the MyClass class is defined in the MyClass.php file.
+                // Faça o teste!
+                // Como não incluímos um arquivo com a definição do objeto MyClass, nosso autoloader irá localizar e incluir o arquivo MyClass.php.
+                // Nesse exemplo, assuma que a classe MyClass está definida no arquivo MyClass.php.
                 $var = new MyClass();
                 ?&gt;</code>
         
                 <h4>Mais informações</h4>
                 <ul>
                     <li><a href="http://php.net/manual/en/function.spl-autoload-register.php">PHP Manual: spl_autoload_register()</a></li>
-                    <li><a href="http://stackoverflow.com/questions/791899/efficient-php-auto-loading-and-naming-strategies">Stack Overflow: Efficient PHP auto-loading and naming strategies</a></li>
+                    <li><a href="http://stackoverflow.com/questions/791899/efficient-php-auto-loading-and-naming-strategies">Stack Overflow: Efficient PHP auto-loading and naming strategies (Estratégias eficientes de autoloading e nomenclatura no PHP
+                    )</a></li>
                 </ul>
             </section>
         
